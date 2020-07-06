@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <style>
+.content{
+  width: 60%;
+  float: left;
+  background: red;
+}
+.sidebar{
+  width: 40%;
+  float:right;
+  background: green;
+}
+body{
+  color: white;
+  background: red;
+}
+#date{
+  font-size: 12px;
+  color: yellow;
+}
+#ch{
+  font-size: 30px;
+  color: yellow;
+  border-bottom:2px  solid yellow;
+}
+</style>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <div class="content">
+      <h1>{{post.title|title}}</h1><hr>
+      <p id="date">Published  on {{post.publish}} by {{post.author|title}}</p>
+      {{post.body|linebreaks}}
+        <a href="/{{post.id}}/share" class="btn btn-lg btn-success">Share Post By Email</a>
+        {% with comments.count as comments_count%}
+        <h2>{{comments_count}} Comment{{comments_count|pluralize}}</h2>
+        {%endwith%}
+        {%if comments%}
+        {%for comment in comments%}
+        <p id="ch"> Comment {{forloop.counter}} by {{comment.name}} on {{comment.created}}</p>
+        <div class="cb">{{comment.body|linebreaks}}
+          {%endfor%}
+          {%else%}
+  <p>There are no comments yet!!!</p>
+  {%endif%}
+  {%if csubmit%}
+<h2>Your comment Added Successfully</h2>
+{%else%}<hr>
+<h2>You can submit your comment it is more valuable for us</h2>
+<form method="post">
+{{form.as_p}}
+{%csrf_token%}
+<input type="submit"class="btn btn-success btn-lg" value="Submit Comment">
+</form>
+{%endif%}
+
+        </div>
+    </div>
+
+  </body>
+</html>

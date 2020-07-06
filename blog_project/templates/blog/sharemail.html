@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <style>
+.content{
+  width: 60%;
+  float: left;
+  background: red;
+}
+.sidebar{
+  width: 40%;
+  float:right;
+  background: green;
+}
+body{
+  color: white;
+  background: red;
+}
+#date{
+  font-size: 12px;
+  color: yellow;
+}
+a{
+  color:#472a43;
+}
+</style>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    {%if sent%}
+    <h1>Email Successfully Send</h1>
+    <h2>Share Post with title:{{post.title}} information shared by Email!!!</h2>
+    {%else%}
+    <div class="content">
+      <h1>Share Post With Title:{{post.title}} By Email</h1><hr>
+<form method="POST">
+{{form.as_p}}
+{%csrf_token%}
+<input type="submit" class="btn btn-primary btn-lg" value="Send Mail">
+</form>
+
+    </div>
+    <div class="sidebar">
+      <h1>abbas's blog</h1>
+      <p>Here you can see python updations...</p>
+    </div>
+    {%endif%}
+
+  </body>
+</html>
